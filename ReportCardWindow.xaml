@@ -1,0 +1,21 @@
+﻿<Window x:Class="WPF_BD_PR10.ReportCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_BD_PR10"
+        mc:Ignorable="d"
+        Title="ReportCardWindow" Height="278" Width="214">
+    <Grid>
+        <TextBox x:Name="serviceNumberTextBox" HorizontalAlignment="Left" Margin="32,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Табельный номер:" HorizontalAlignment="Left" Margin="32,16,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="timeWorkedInHoursTextBox" HorizontalAlignment="Left" Margin="32,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Тариф (руб./ час.):" HorizontalAlignment="Left" Margin="32,60,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="monthNumberTextBox" HorizontalAlignment="Left" Margin="32,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Номер месяца:" HorizontalAlignment="Left" Margin="32,104,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="saveReportCard" Content="Сохранить" HorizontalAlignment="Left" Margin="20,194,0,0" VerticalAlignment="Top" Click="SaveReportCard_Click"/>
+        <Button Content="Отмена" HorizontalAlignment="Left" Margin="118,194,0,0" VerticalAlignment="Top" Click="Exit_Click"/>
+        <Button x:Name="editReportCard" Content="Сохранить." HorizontalAlignment="Left" Margin="20,194,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="EditReportCard_Click"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,80 @@
+﻿<Window x:Name="mainWindow" x:Class="WPF_BD_PR10.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_BD_PR10"
+        mc:Ignorable="d"
+        Title="Практическая работа №20" Height="606" Width="1006" Loaded="MainWindow_Loaded" ResizeMode="NoResize">
+    <Grid>
+        <TabControl Margin="10,26,0,0" Height="538" VerticalAlignment="Top" HorizontalAlignment="Left" Width="512">
+            <TabItem Header="Справочник сотрудников">
+                <Grid Background="#FFE5E5E5" Height="511" VerticalAlignment="Center">
+                    <DataGrid x:Name="dataGrid_DirectoryOfEmployees" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Width="432" Height="380" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                    <Button x:Name="add_DirectoryOfEmployees" Content="Добавить запись" HorizontalAlignment="Left" Margin="15,395,0,0" VerticalAlignment="Top" Width="132" Height="30" FontSize="14" Click="Add_DirectoryOfEmployees_Click"/>
+                    <Button x:Name="delete_DirectoryOfEmployees" Content="Удалить запись" HorizontalAlignment="Left" Margin="289,395,0,0" VerticalAlignment="Top" Width="115" Height="30" FontSize="14" Click="Delete_DirectoryOfEmployees_CLick"/>
+                    <Button x:Name="add_DirectoryOfEmployees_Copy" Content="Поиск" HorizontalAlignment="Left" Margin="15,430,0,0" VerticalAlignment="Top" Width="132" Height="30" FontSize="14" Click="Find_Click"/>
+                    <TextBox x:Name="txtFind" HorizontalAlignment="Left" Margin="152,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" Height="30" FontSize="14" VerticalContentAlignment="Center"/>
+                    <Button x:Name="Edit_DirectoryOfEmployees" Content="Изменить" HorizontalAlignment="Left" Margin="152,395,0,0" VerticalAlignment="Top" Width="132" Height="30" FontSize="14" Click="Edit_DirectoryOfEmployees_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Табель">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGrid_ReportCard" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Width="307" Height="376" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                    <Button x:Name="add_ReportCard" Content="Добавить запись" HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="121" Height="30" FontSize="14" Click="AddRecord_Click"/>
+                    <Button x:Name="edit_ReportCard" Content="Изменить запись" HorizontalAlignment="Left" Margin="136,391,0,0" VerticalAlignment="Top" Width="139" Height="30" FontSize="14" Click="Edit_ReportCard_Click"/>
+                    <Button x:Name="delete_ReportCard" Content="Удалить запись" HorizontalAlignment="Left" Margin="280,391,0,0" VerticalAlignment="Top" Width="130" Height="30" FontSize="14" Click="Delete_ReportCard_Click"/>
+                    <Button x:Name="Find_ReportCard" Content="Поиск" HorizontalAlignment="Left" Margin="10,426,0,0" VerticalAlignment="Top" Width="121" Height="30" FontSize="14" Click="FindReportCard_Click"/>
+                    <TextBox x:Name="txtFindRepordCard" HorizontalAlignment="Left" Margin="136,426,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" Height="30" FontSize="14" VerticalContentAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Список цехов">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGrid_ListOfWorkshops" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Width="236" Height="366" VerticalAlignment="Top" Margin="17,10,0,0"/>
+                    <Button x:Name="add_ListOfWorkshops" Content="Добавить запись" HorizontalAlignment="Left" Margin="17,381,0,0" VerticalAlignment="Top" Width="118" Height="30" FontSize="14" Click="Add_ListOfWorkshops_Click"/>
+                    <Button x:Name="edit_ListOfWorkshops" Content="Изменить запись" HorizontalAlignment="Left" Margin="143,381,0,0" VerticalAlignment="Top" Width="122" Height="30" FontSize="14" Click="Edit_ListOfWorkshops_Click"/>
+                    <Button x:Name="delete_ListOfWorkshops" Content="Удалить запись" HorizontalAlignment="Left" Margin="270,381,0,0" VerticalAlignment="Top" Width="130" Height="30" FontSize="14" Click="Delete_ListOfWorkshops_Click"/>
+                    <Button x:Name="Find_ListOfWorkshops" Content="Поиск" HorizontalAlignment="Left" Margin="17,416,0,0" VerticalAlignment="Top" Width="118" Height="30" FontSize="14" Click="FindListOfWorkshops_Click"/>
+                    <TextBox x:Name="txtFind_ListOfWorkshops" HorizontalAlignment="Left" Margin="143,416,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122" Height="30" FontSize="14" VerticalContentAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Справочник тарифов">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGrid_TariffReference" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Width="176" Height="371" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                    <Button x:Name="add_TariffReference" Content="Добавить запись" HorizontalAlignment="Left" Margin="9,386,0,0" VerticalAlignment="Top" Width="130" Height="30" FontSize="14" Click="Add_TariffReference_Click"/>
+                    <Button x:Name="edit_TariffReference" Content="Изменить запись" HorizontalAlignment="Left" Margin="145,386,0,0" VerticalAlignment="Top" Width="130" Height="30" FontSize="14" Click="Edit_TariffReference_Click"/>
+                    <Button x:Name="delete_TariffReference" Content="Удалить запись" HorizontalAlignment="Left" Margin="280,386,0,0" VerticalAlignment="Top" Width="130" Height="30" FontSize="14" Click="Delete_TariffReference_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="add_ReportCard_Copy" Content="Отобразить LINQ запрос" HorizontalAlignment="Left" Margin="528,534,0,0" VerticalAlignment="Top" Width="170" Height="30" FontSize="14" Click="LinqButton_Click"/>
+        <Button Content="Выход" HorizontalAlignment="Left" Margin="703,534,0,0" VerticalAlignment="Top" FontSize="14" Width="125" Background="#FFFF8080" Click="Exit_Click" Height="30"/>
+        <Menu Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="139" RenderTransformOrigin="0.5,0.5">
+            <Menu.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.796"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.153"/>
+                </TransformGroup>
+            </Menu.RenderTransform>
+            <MenuItem Header="О программе" Click="Info_Click"></MenuItem>
+            <MenuItem Header="Выход" Click="Exit_Click"></MenuItem>
+        </Menu>
+        <TabControl Margin="528,26,0,0" HorizontalAlignment="Left" Width="435" Height="504" VerticalAlignment="Top">
+            <TabItem Header="LinQ запрос №1">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGrid_ListOfEmployees" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="410" Height="429" VerticalAlignment="Top" Margin="0,33,0,0"/>
+                    <Label Content="Список работников цеха" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="LinQ запрос №2">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="dataGrid_ListOfEmployees2" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Width="410" Height="429" VerticalAlignment="Top" Margin="0,33,0,0"/>
+                    <Label Content="Список работников цеха" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище BdModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DirectoryOfEmployees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ServiceNumber" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Workshop" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListOfWorkshops">
+          <Key>
+            <PropertyRef Name="Workshop" />
+          </Key>
+          <Property Name="Workshop" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="WorkshopName" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportCard">
+          <Key>
+            <PropertyRef Name="ServiceNumber" />
+          </Key>
+          <Property Name="ServiceNumber" Type="int" Nullable="false" />
+          <Property Name="TimeWorkedInHours" Type="int" Nullable="false" />
+          <Property Name="MonthNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TariffReference">
+          <Key>
+            <PropertyRef Name="Category" />
+          </Key>
+          <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="rate" Type="money" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DirectoryOfEmployees_ListOfWorkshops">
+          <End Role="ListOfWorkshops" Type="Self.ListOfWorkshops" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DirectoryOfEmployees" Type="Self.DirectoryOfEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListOfWorkshops">
+              <PropertyRef Name="Workshop" />
+            </Principal>
+            <Dependent Role="DirectoryOfEmployees">
+              <PropertyRef Name="Workshop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirectoryOfEmployees_ReportCard">
+          <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DirectoryOfEmployees" Type="Self.DirectoryOfEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportCard">
+              <PropertyRef Name="ServiceNumber" />
+            </Principal>
+            <Dependent Role="DirectoryOfEmployees">
+              <PropertyRef Name="ServiceNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirectoryOfEmployees_TariffReference">
+          <End Role="TariffReference" Type="Self.TariffReference" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DirectoryOfEmployees" Type="Self.DirectoryOfEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffReference">
+              <PropertyRef Name="Category" />
+            </Principal>
+            <Dependent Role="DirectoryOfEmployees">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище BdModelContainer">
+          <EntitySet Name="DirectoryOfEmployees" EntityType="Self.DirectoryOfEmployees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListOfWorkshops" EntityType="Self.ListOfWorkshops" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportCard" EntityType="Self.ReportCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TariffReference" EntityType="Self.TariffReference" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DirectoryOfEmployees_ListOfWorkshops" Association="Self.FK_DirectoryOfEmployees_ListOfWorkshops">
+            <End Role="ListOfWorkshops" EntitySet="ListOfWorkshops" />
+            <End Role="DirectoryOfEmployees" EntitySet="DirectoryOfEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirectoryOfEmployees_ReportCard" Association="Self.FK_DirectoryOfEmployees_ReportCard">
+            <End Role="ReportCard" EntitySet="ReportCard" />
+            <End Role="DirectoryOfEmployees" EntitySet="DirectoryOfEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirectoryOfEmployees_TariffReference" Association="Self.FK_DirectoryOfEmployees_TariffReference">
+            <End Role="TariffReference" EntitySet="TariffReference" />
+            <End Role="DirectoryOfEmployees" EntitySet="DirectoryOfEmployees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DirectoryOfEmployee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceNumber" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Workshop" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ListOfWorkshop" Relationship="Self.FK_DirectoryOfEmployees_ListOfWorkshops" FromRole="DirectoryOfEmployees" ToRole="ListOfWorkshops" />
+          <NavigationProperty Name="ReportCard" Relationship="Self.FK_DirectoryOfEmployees_ReportCard" FromRole="DirectoryOfEmployees" ToRole="ReportCard" />
+          <NavigationProperty Name="TariffReference" Relationship="Self.FK_DirectoryOfEmployees_TariffReference" FromRole="DirectoryOfEmployees" ToRole="TariffReference" />
+        </EntityType>
+        <EntityType Name="ListOfWorkshop">
+          <Key>
+            <PropertyRef Name="Workshop" />
+          </Key>
+          <Property Name="Workshop" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="WorkshopName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DirectoryOfEmployees" Relationship="Self.FK_DirectoryOfEmployees_ListOfWorkshops" FromRole="ListOfWorkshops" ToRole="DirectoryOfEmployees" />
+        </EntityType>
+        <EntityType Name="ReportCard">
+          <Key>
+            <PropertyRef Name="ServiceNumber" />
+          </Key>
+          <Property Name="ServiceNumber" Type="Int32" Nullable="false" />
+          <Property Name="TimeWorkedInHours" Type="Int32" Nullable="false" />
+          <Property Name="MonthNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DirectoryOfEmployees" Relationship="Self.FK_DirectoryOfEmployees_ReportCard" FromRole="ReportCard" ToRole="DirectoryOfEmployees" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TariffReference">
+          <Key>
+            <PropertyRef Name="Category" />
+          </Key>
+          <Property Name="Category" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="rate" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="DirectoryOfEmployees" Relationship="Self.FK_DirectoryOfEmployees_TariffReference" FromRole="TariffReference" ToRole="DirectoryOfEmployees" />
+        </EntityType>
+        <Association Name="FK_DirectoryOfEmployees_ListOfWorkshops">
+          <End Role="ListOfWorkshops" Type="Self.ListOfWorkshop" Multiplicity="1" />
+          <End Role="DirectoryOfEmployees" Type="Self.DirectoryOfEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListOfWorkshops">
+              <PropertyRef Name="Workshop" />
+            </Principal>
+            <Dependent Role="DirectoryOfEmployees">
+              <PropertyRef Name="Workshop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirectoryOfEmployees_ReportCard">
+          <End Role="ReportCard" Type="Self.ReportCard" Multiplicity="1" />
+          <End Role="DirectoryOfEmployees" Type="Self.DirectoryOfEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportCard">
+              <PropertyRef Name="ServiceNumber" />
+            </Principal>
+            <Dependent Role="DirectoryOfEmployees">
+              <PropertyRef Name="ServiceNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirectoryOfEmployees_TariffReference">
+          <End Role="TariffReference" Type="Self.TariffReference" Multiplicity="1" />
+          <End Role="DirectoryOfEmployees" Type="Self.DirectoryOfEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffReference">
+              <PropertyRef Name="Category" />
+            </Principal>
+            <Dependent Role="DirectoryOfEmployees">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BdEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DirectoryOfEmployees" EntityType="Self.DirectoryOfEmployee" />
+          <EntitySet Name="ListOfWorkshops" EntityType="Self.ListOfWorkshop" />
+          <EntitySet Name="ReportCards" EntityType="Self.ReportCard" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TariffReferences" EntityType="Self.TariffReference" />
+          <AssociationSet Name="FK_DirectoryOfEmployees_ListOfWorkshops" Association="Self.FK_DirectoryOfEmployees_ListOfWorkshops">
+            <End Role="ListOfWorkshops" EntitySet="ListOfWorkshops" />
+            <End Role="DirectoryOfEmployees" EntitySet="DirectoryOfEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirectoryOfEmployees_ReportCard" Association="Self.FK_DirectoryOfEmployees_ReportCard">
+            <End Role="ReportCard" EntitySet="ReportCards" />
+            <End Role="DirectoryOfEmployees" EntitySet="DirectoryOfEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirectoryOfEmployees_TariffReference" Association="Self.FK_DirectoryOfEmployees_TariffReference">
+            <End Role="TariffReference" EntitySet="TariffReferences" />
+            <End Role="DirectoryOfEmployees" EntitySet="DirectoryOfEmployees" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BdModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BdModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BdModelContainer" CdmEntityContainer="BdEntities">
+          <EntitySetMapping Name="DirectoryOfEmployees">
+            <EntityTypeMapping TypeName="BdModel.DirectoryOfEmployee">
+              <MappingFragment StoreEntitySet="DirectoryOfEmployees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ServiceNumber" ColumnName="ServiceNumber" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Workshop" ColumnName="Workshop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListOfWorkshops">
+            <EntityTypeMapping TypeName="BdModel.ListOfWorkshop">
+              <MappingFragment StoreEntitySet="ListOfWorkshops">
+                <ScalarProperty Name="Workshop" ColumnName="Workshop" />
+                <ScalarProperty Name="WorkshopName" ColumnName="WorkshopName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportCards">
+            <EntityTypeMapping TypeName="BdModel.ReportCard">
+              <MappingFragment StoreEntitySet="ReportCard">
+                <ScalarProperty Name="ServiceNumber" ColumnName="ServiceNumber" />
+                <ScalarProperty Name="TimeWorkedInHours" ColumnName="TimeWorkedInHours" />
+                <ScalarProperty Name="MonthNumber" ColumnName="MonthNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BdModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TariffReferences">
+            <EntityTypeMapping TypeName="BdModel.TariffReference">
+              <MappingFragment StoreEntitySet="TariffReference">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище BdModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище BdModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище BdModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище BdModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище BdModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище BdModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище BdModel.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
